@@ -27,3 +27,15 @@ export const getFrequentCombinations = async (k) => {
     throw error;
   }
 };
+
+export const getTotalConcursos = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/total-concursos`);
+    return response.data.total;
+  } catch (error) {
+    console.error("Error al obtener el número total de concursos", error);
+    throw error;
+  }
+};
+
+

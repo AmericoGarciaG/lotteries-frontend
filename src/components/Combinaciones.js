@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { getFrequentCombinations } from '../api/api';  // Asegúrate de importar la función desde api.js
+import { getFrequentCombinations, getTotalConcursos } from '../api/api';  // Asegúrate de importar la función para obtener el total de concursos
 
 const Combinaciones = () => {
   const [combinaciones, setCombinaciones] = useState([]);
-  const [k, setK] = useState(2); // Tamaño de la combinación
+  const [totalConcursos, setTotalConcursos] = useState(1);  // Guardar el número total de concursos
+  const [k, setK] = useState(1); // Tamaño de la combinación
 
   useEffect(() => {
+    // Obtener el número total de concursos al cargar la página
+    const fetchTotalConcursos = async () => {
+      try {
+        const total = await getTotalConcursos();
+        setTotalConcursos(total);
+      } catch (error) {
+        console.error("Error fetching total concursos", error);
+      }
+    };
+
+    // Obtener las combinaciones
     const fetchCombinaciones = async () => {
       try {
         const data = await getFrequentCombinations(k);
-        console.log('Datos recibidos:', data);  // Consola para ver los datos recibidos
-        if (data && data.length > 0) {
-          setCombinaciones(data);
-        } else {
-          console.warn('No se recibieron combinaciones');
-        }
+        setCombinaciones(data);
       } catch (error) {
         console.error("Error fetching combinaciones", error);
       }
     };
 
-    fetchCombinaciones();
+    fetchTotalConcursos();  // Obtener total de concursos
+    fetchCombinaciones();  // Obtener combinaciones
   }, [k]);
 
   return (
@@ -42,6 +50,7 @@ const Combinaciones = () => {
           <tr>
             <th>Combinación</th>
             <th>Frecuencia</th>
+            <th>%</th> {/* Nueva columna para el porcentaje */}
           </tr>
         </thead>
         <tbody>
@@ -49,6 +58,7 @@ const Combinaciones = () => {
             <tr key={index}>
               <td>{comb.combination ? comb.combination.replace(/,/g, ', ') : 'Datos no disponibles'}</td>
               <td>{comb.frequency !== undefined ? comb.frequency : 'Sin datos'}</td>
+              <td>{comb.frequency !== undefined ? ((comb.frequency / totalConcursos) * 100).toFixed(2) + '%' : 'Sin datos'}</td> {/* Cálculo del porcentaje */}
             </tr>
           ))}
         </tbody>

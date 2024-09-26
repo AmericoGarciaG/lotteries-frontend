@@ -3,15 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@eslint/config-array": "^0.18.0",
+    "@eslint/object-schema": "^2.1.4",
+    "@testing-library/dom": "^8.14.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.7",
-    "bootstrap": "^5.3.3",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.2",
+    "loglevel": "^1.8.1",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.7.1",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
-    "rimraf": "^6.0.1",
+    "sass": "^1.54.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -37,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.24.0",
+    "eslint-plugin-react": "^7.31.8"
   }
 }
